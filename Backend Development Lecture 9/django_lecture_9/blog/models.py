@@ -7,6 +7,14 @@ class Blog(models.Model):
     class Meta:
         verbose_name = "blog"
         verbose_name_plural = "blogs"
+        ordering = ['title']
+        unique_together = ('title', 'text')
 
     def __str__(self):
         return self.title
+
+class BaseModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
