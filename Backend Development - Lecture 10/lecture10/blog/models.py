@@ -24,6 +24,14 @@ class BlogImages(models.Model):
     image = models.ImageField(upload_to="images/", null= True, blank= True)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = "BlogImage"
+        verbose_name_plural = "BlogImages"
+        ordering = ["blog"]
+
+    def __str__(self):
+        return f'{self.blog.title} - {self.image}'
+
 class BaseClass(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
