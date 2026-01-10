@@ -48,6 +48,15 @@ class BlogImages(models.Model):
     def __str__(self):
         return f'{self.blog.title} - {self.image}'
 
+class BannerImages(models.Model):
+    blog=models.OneToOneField(to="Blog", related_name="banner_image", on_delete=models.CASCADE)
+    bannerImage=models.ImageField(upload_to="./bannerImages/", null= True, blank= True)
+    class Meta:
+        verbose_name = "Banner Image"
+        verbose_name_plural = "Banner Images"
+        ordering = ["blog"]
+    def __str__(self):
+        return f'{self.blog.title} - {self.bannerImage}'
 class BaseClass(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
