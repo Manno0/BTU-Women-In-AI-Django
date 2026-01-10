@@ -10,6 +10,7 @@ class Blog(models.Model):
     email=models.EmailField(verbose_name="იმეილი", unique= True, null= True)
     website=models.URLField(verbose_name="ვებსაიტი", unique= True, null= True)
     documents=models.FileField(upload_to="files/", null= True, blank= True)
+    authors=models.ManyToManyField(to="Author",verbose_name="ავტორები",related_name="authors")
 
 
 
@@ -22,14 +23,17 @@ class Blog(models.Model):
         return self.title
 
 class Author(models.Model):
-    first_name=models.CharField(max_length=200)
-    last_name=models.CharField(max_length=200)
+    first_name=models.CharField(verbose_name="სახელი",  max_length=200)
+    last_name=models.CharField(verbose_name="გვარი",max_length=200)
+    email=models.EmailField(verbose_name="მეილი", unique= True, null= True)
     blog=models.ForeignKey(Blog,on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Author"
         verbose_name_plural = "Authors"
         ordering = ["last_name"]
+    def __str__(self)  :
+        return f'{self.first_name} {self.last_name}'
 
 
 class BlogImages(models.Model):
