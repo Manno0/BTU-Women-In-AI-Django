@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.forms import AuthenticationForm
 from django.db import models
 
@@ -29,7 +31,11 @@ class Author(models.Model):
     first_name=models.CharField(verbose_name="სახელი",  max_length=200)
     last_name=models.CharField(verbose_name="გვარი",max_length=200)
     email=models.EmailField(verbose_name="მეილი", unique= True, null= True)
-
+    birthdate= models.DateField(verbose_name="დაბადების თარიღი", null= True, blank= True)
+    @property
+    def age(self):
+        today=date.today()
+        return today.year - self.birthdate.year -((today.month, today.day) < (self.birthdate.month, self.birthdate.day))
     def get_blogs(self):
         return self.blogs.all()
 
