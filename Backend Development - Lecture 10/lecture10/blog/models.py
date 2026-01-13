@@ -38,7 +38,6 @@ class Author(models.Model):
         return today.year - self.birthdate.year -((today.month, today.day) < (self.birthdate.month, self.birthdate.day))
     def get_blogs(self):
         return self.blogs.all()
-
     class Meta:
         verbose_name = "Author"
         verbose_name_plural = "Authors"
